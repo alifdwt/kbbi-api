@@ -30,3 +30,11 @@ type SearchResponse struct {
 	Limit      int                  `json:"limit"`
 	TotalPages int                  `json:"total_pages"`
 }
+
+type EnhancedSearchResponse struct {
+	Data       []EnhancedDictionary `json:"data"`
+	Total      int64                `json:"total"`
+	Page       int                  `json:"page"`
+	Limit      int                  `json:"limit"`
+	TotalPages int                  `json:"total_pages"`
+}

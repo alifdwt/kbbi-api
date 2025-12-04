@@ -126,7 +126,61 @@ Response:
 }
 ```
 
-### 3. Get Specific Word
+### 3. Enhanced Search Words
+```
+GET /api/v1/enhanced/search?query=kata&page=1&limit=20
+```
+
+Parameters:
+- `query` (required): Kata yang dicari
+- `page` (optional): Halaman, default 1
+- `limit` (optional): Jumlah hasil per halaman, max 100, default 20
+
+Response:
+```json
+{
+  "data": [
+    {
+      "word": "main",
+      "definitions": [
+        {
+          "id": 1,
+          "text": "melakukan permainan untuk menyenangkan hati",
+          "examples": ["main bola", "main kelereng", "main cari-carian"]
+        },
+        {
+          "id": 2,
+          "text": "Cakapan (tidak baku) melakukan perbuatan untuk bersenang-senang",
+          "examples": ["anak-anak sedang main di halaman"]
+        },
+        {
+          "id": 3,
+          "text": "berjudi",
+          "examples": ["sepanjang hari kerjanya hanya main domino"]
+        }
+      ],
+      "word_types": [
+        {
+          "type": "Verba (kata kerja)",
+          "definitions": [
+            {
+              "id": 1,
+              "text": "melakukan permainan untuk menyenangkan hati",
+              "examples": ["main bola", "main kelereng", "main cari-carian"]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "total": 1,
+  "page": 1,
+  "limit": 20,
+  "total_pages": 1
+}
+```
+
+### 4. Get Specific Word
 ```
 GET /api/v1/word/abadi
 ```
@@ -140,7 +194,49 @@ Response:
 }
 ```
 
-### 4. Get Statistics
+### 5. Enhanced Get Specific Word
+```
+GET /api/v1/enhanced/word/main
+```
+
+Response:
+```json
+{
+  "word": "main",
+  "definitions": [
+    {
+      "id": 1,
+      "text": "melakukan permainan untuk menyenangkan hati",
+      "examples": ["main bola", "main kelereng", "main cari-carian"]
+    },
+    {
+      "id": 2,
+      "text": "Cakapan (tidak baku) melakukan perbuatan untuk bersenang-senang",
+      "examples": ["anak-anak sedang main di halaman"]
+    },
+    {
+      "id": 3,
+      "text": "berjudi",
+      "examples": ["sepanjang hari kerjanya hanya main domino"]
+    }
+  ],
+  "word_types": [
+    {
+      "type": "Verba (kata kerja)",
+      "definitions": [
+        {
+          "id": 1,
+          "text": "melakukan permainan untuk menyenangkan hati",
+          "examples": ["main bola", "main kelereng", "main cari-carian"]
+        }
+      ]
+    }
+  ],
+  "original": "ma.in\nVerba (kata kerja)\n(1) melakukan permainan untuk menyenangkan hati (dengan menggunakan alat-alat tertentu atau tidak): main bola; main kelereng; main cari-carian;\n(2) Cakapan (tidak baku) melakukan perbuatan untuk bersenang-senang (dengan menggunakan alat-alat tertentu atau tidak): anak-anak sedang main di halaman;\n(3) berjudi: sepanjang hari kerjanya hanya main domino;"
+}
+```
+
+### 6. Get Statistics
 ```
 GET /api/v1/stats
 ```
@@ -163,6 +259,16 @@ Response:
   "status": "healthy"
 }
 ```
+
+## Sumber Data
+
+Data kata-kata dalam database KBBI API ini bersumber dari:
+
+- **Repository**: [https://github.com/dyazincahya/KBBI-SQL-database](https://github.com/dyazincahya/KBBI-SQL-database)
+- **File SQL**: `dictionary_PostgreSQL.sql`
+- **Lisensi**: Data ini digunakan sesuai dengan lisensi yang tersedia di repository asli
+
+Terima kasih kepada [dyazincahya](https://github.com/dyazincahya) atas kontribusi data KBBI yang sangat berharga ini.
 
 ## Database Schema
 
