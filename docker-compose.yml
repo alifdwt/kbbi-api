@@ -1,0 +1,37 @@
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: kbbi-postgres
+    environment:
+      POSTGRES_DB: kbbi
+      POSTGRES_USER: kbbi_user
+      POSTGRES_PASSWORD: kbbi_password
+    ports:
+      - "5436:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/01-create-table.sql
+      - ./dictionary_PostgreSQL.sql:/docker-entrypoint-initdb.d/02-insert-data.sql
+    networks:
+      - kbbi-network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: kbbi-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@kbbi.local
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - kbbi-network
+
+volumes:
+  postgres_data:
+
+networks:
+  kbbi-network:
+    driver: bridge
